@@ -61,7 +61,35 @@ def terminate():
 
 
 def start_screen():
-    pass
+    intro_text = ["Последний рубеж", "", "", "", "", "Новая игра"]
+
+    click_sound = pygame.mixer.Sound('data/click_sound3.mp3')
+    fon = pygame.transform.scale(load_image('start_fon_1.jpg'), screen_size)
+    screen.blit(fon, (0, 0))
+    font = pygame.font.Font(None, 30)
+    text_coord = 0
+    for line in intro_text:
+        string_rendered = font.render(line, True, pygame.Color('black'))
+        intro_rect = string_rendered.get_rect()
+        text_coord += 10
+        intro_rect.top = text_coord
+        intro_rect.x = 300
+        text_coord += intro_rect.height
+        screen.blit(string_rendered, intro_rect)
+        clock = pygame.time.Clock()
+
+    play = True
+    while play:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                terminate()
+            elif event.type == pygame.KEYDOWN or \
+                    event.type == pygame.MOUSEBUTTONDOWN:
+                click_sound.play()
+                if 600 > event.pos[0] > 300 and 185 > event.pos[1] > 160:
+                    play = False
+        pygame.display.flip()
+        clock.tick(FPS)
 
 
 def main():
