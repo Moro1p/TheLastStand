@@ -45,6 +45,16 @@ def load_image(name, color_key=None):
     return image
 
 
+def load_sound(name):
+    fullname = os.path.join('data', name)
+    try:
+        sound = pygame.mixer.Sound(fullname)
+    except pygame.error as message:
+        print('Не удаётся загрузить:', name)
+        raise SystemExit(message)
+    return sound
+
+
 def terminate():
     pygame.quit()
     sys.exit()
