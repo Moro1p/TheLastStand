@@ -93,7 +93,20 @@ def start_screen():
 
 
 def main():
-    pass
+    song = pygame.mixer.Sound('data/soundtrack.mp3')
+    song.play()
+    fon2 = pygame.transform.scale(load_image('fon2.jpg'), screen_size)
+    screen.blit(fon2, (0, 0))
+    clock = pygame.time.Clock()
+    play = True
+    while play:
+        if not pygame.mixer.get_busy():
+            song.play()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                play = False
+        pygame.display.flip()
+        clock.tick(FPS)
 
 
 def end_screen():
